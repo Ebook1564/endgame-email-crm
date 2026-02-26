@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MailDash - Email CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --glass-border: rgba(255, 255, 255, 0.06);
+        --glass-bg: rgba(3, 7, 18, 0.65); /* ultra-dark gray/blue */
+        --glass-bg-strong: rgba(3, 7, 18, 0.85);
+        --neon-indigo: 99, 102, 241;
+        --neon-purple: 168, 85, 247;
+      }
+
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #030712; /* Very dark slate, almost black */
+        color: #f8fafc;
+        overflow: hidden;
+      }
+
+      /* Sophisticated Dynamic Moving Tech Background */
+      .tech-bg {
+        background: radial-gradient(circle at 15% 0%, rgba(30, 27, 75, 0.8), transparent 40%),
+                    radial-gradient(circle at 85% 100%, rgba(15, 23, 42, 0.9), transparent 40%),
+                    #030712;
+        position: relative;
+      }
+
+      /* Subtle Grid Overlay */
+      .tech-bg::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: 
+          linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 32px 32px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Animated Glowing Orbs */
+      .tech-bg::after {
+        content: "";
+        position: absolute;
+        top: -20%; left: -10%; width: 50vw; height: 50vh;
+        background: radial-gradient(circle, rgba(var(--neon-indigo), 0.15), transparent 60%);
+        filter: blur(60px);
+        animation: float 15s infinite alternate ease-in-out;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      @keyframes float {
+        0% { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(10%, 20%) scale(1.2); }
+      }
+
+      /* High-End Glassmorphism */
+      .glass {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+      }
+      
+      .glass-strong {
+        background: var(--glass-bg-strong);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+      }
+
+      .glass-panel {
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(3, 7, 18, 0.8) 100%);
+        backdrop-filter: blur(16px);
+        border: 1px solid var(--glass-border);
+        box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+      }
+
+      /* Sleek Scrollbar */
+      ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(var(--neon-indigo), 0.8);
+        box-shadow: 0 0 10px rgba(var(--neon-indigo), 0.6);
+      }
+
+      /* Custom Glow Utilities */
+      .glow-text {
+        text-shadow: 0 0 15px rgba(var(--neon-indigo), 0.5);
+      }
+      .glow-border {
+        box-shadow: 0 0 15px rgba(var(--neon-indigo), 0.3), inset 0 0 10px rgba(var(--neon-indigo), 0.1);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "date-fns": "https://esm.sh/date-fns@^4.1.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "recharts": "https://esm.sh/recharts@^3.7.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
