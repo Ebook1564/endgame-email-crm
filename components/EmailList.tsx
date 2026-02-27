@@ -1,6 +1,6 @@
 import React from 'react';
-import { Email, Deal, SortState } from '../types';
-import { Paperclip, Star, ArrowUpRight, ArrowDownRight, ChevronDown, Inbox, Briefcase } from './Icons';
+import { Email, Deal, SortState, EmailStatus } from '../types';
+import { Paperclip, Star, ArrowUpRight, ArrowDownRight, ChevronDown, Inbox, Briefcase, MessageSquareWarning } from './Icons';
 
 interface EmailListProps {
   emails: Email[];
@@ -66,6 +66,9 @@ export const EmailList: React.FC<EmailListProps> = ({
             const isSelected = email.id === selectedEmailId;
             const linkedDeal = email.dealId ? deals.find(d => d.id === email.dealId) : null;
 
+            const senderName = typeof email.sender === 'string' ? email.sender : email.sender.name;
+            const senderAvatar = typeof email.sender === 'string' ? `https://ui-avatars.com/api/?name=${encodeURIComponent(email.sender)}&background=random&color=fff` : email.sender.avatar;
+
             return (
               <div
                 key={email.id}
@@ -77,13 +80,13 @@ export const EmailList: React.FC<EmailListProps> = ({
                 <div className="flex items-center justify-between mb-1">
                   <div className="flex items-center space-x-2 overflow-hidden">
                     <div className="relative shrink-0">
-                      <img src={email.sender.avatar} alt="" className="w-8 h-8 rounded-full border border-slate-700" />
+                      <img src={senderAvatar} alt="" className="w-8 h-8 rounded-full border border-slate-700" />
                       {!email.isRead && (
                         <div className="absolute -top-1 -right-1 w-3 h-3 bg-indigo-500 rounded-full border-2 border-slate-900 shadow-[0_0_8px_rgba(99,102,241,0.8)]"></div>
                       )}
                     </div>
                     <span className={`text-sm truncate ${!email.isRead ? 'font-bold text-white' : 'font-medium text-slate-300'}`}>
-                      {email.sender.name}
+                      {senderName}
                     </span>
                   </div>
                   <span className={`text-xs shrink-0 ml-2 ${!email.isRead ? 'font-bold text-indigo-400' : 'text-slate-500'}`}>
@@ -115,6 +118,12 @@ export const EmailList: React.FC<EmailListProps> = ({
                       {label}
                     </span>
                   ))}
+                  {email.status === EmailStatus.UNANSWERED && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-red-500/10 border border-red-500/20 text-red-300 shadow-sm">
+                      <MessageSquareWarning className="w-3 h-3 mr-1" />
+                      Unanswered
+                    </span>
+                  )}
                 </div>
               </div>
             );

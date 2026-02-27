@@ -16,6 +16,7 @@ export enum EmailStatus {
   SENT = 'Sent',
   DRAFT = 'Draft',
   TRASH = 'Trash',
+  UNANSWERED = 'Unanswered',
 }
 
 export interface User {
@@ -48,8 +49,8 @@ export interface Task {
 export interface Email {
   id: string;
   subject: string;
-  sender: User;
-  recipient: User;
+  sender: User | string;
+  recipient: User | string;
   snippet: string;
   body: string;
   date: string;
@@ -59,6 +60,11 @@ export interface Email {
   dealId?: string;
   hasAttachment: boolean;
   sentiment: 'Positive' | 'Neutral' | 'Negative';
+  // New fields for unanswered emails
+  threadLink?: string;
+  lastReply?: string;
+  response?: string;
+  notes?: string;
 }
 
 export interface Activity {
