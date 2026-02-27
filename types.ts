@@ -65,6 +65,7 @@ export interface Email {
   lastReply?: string;
   response?: string;
   notes?: string;
+  fullThreadBody?: string;
 }
 
 export interface Activity {
