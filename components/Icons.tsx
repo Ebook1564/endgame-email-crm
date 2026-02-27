@@ -9,5 +9,5 @@ export const {
   ArrowDownRight, Mail, LayoutDashboard, ListFilter, GripVertical, Save,
   Kanban, ListTodo, CheckCircle2, Circle, MoreHorizontal, Activity, Zap,
   ChevronLeft, ChevronRight, Menu, MessageSquare, ExternalLink,
-  PenSquare, Minimize2, Maximize2, MoveDiagonal
+  PenSquare, Minimize2, Maximize2, MoveDiagonal, MessageSquareWarning, LinkIcon
 } = LucideIcons;

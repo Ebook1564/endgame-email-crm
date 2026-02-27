@@ -52,12 +52,29 @@ export default function App() {
     setTasks(tasks.map(t => t.id === updatedTask.id ? updatedTask : t));
   };
 
+  const handleUpdateEmail = (updatedEmail: Email) => {
+    setEmails(emails.map(e => e.id === updatedEmail.id ? e : e));
+    // If the updated email is currently selected, update selectedEmailId to ensure re-render
+    if (selectedEmailId === updatedEmail.id) {
+      setSelectedEmailId(updatedEmail.id);
+    }
+  };
+
   const handleSort = (field: keyof Email | 'dealValue') => {
     setSortState(prev => ({
       field,
       direction: prev.field === field && prev.direction === 'desc' ? 'asc' : 'desc'
     }));
   };
+
+  // Calculate counts for sidebar
+  const inboxCount = useMemo(() => {
+    return emails.filter(email => email.status === EmailStatus.INBOX).length;
+  }, [emails]);
+
+  const unansweredCount = useMemo(() => {
+    return emails.filter(email => email.status === EmailStatus.UNANSWERED).length;
+  }, [emails]);
 
   // Filter and Sort Logic
   const filteredAndSortedEmails = useMemo(() => {
@@ -73,7 +90,7 @@ export default function App() {
       const q = filters.search.toLowerCase();
       result = result.filter(e => 
         e.subject.toLowerCase().includes(q) || 
-        e.sender.name.toLowerCase().includes(q) ||
+        (typeof e.sender === 'string' ? e.sender.toLowerCase().includes(q) : e.sender.name.toLowerCase().includes(q)) ||
         e.snippet.toLowerCase().includes(q)
       );
     }
@@ -100,8 +117,8 @@ export default function App() {
 
       // Custom sorts
       if (sortState.field === 'sender') {
-        valA = a.sender.name;
-        valB = b.sender.name;
+        valA = typeof a.sender === 'string' ? a.sender : a.sender.name;
+        valB = typeof b.sender === 'string' ? b.sender : b.sender.name;
       } else if (sortState.field === 'date') {
         valA = new Date(a.date).getTime();
         valB = new Date(b.date).getTime();
@@ -137,7 +154,7 @@ export default function App() {
           sortState={sortState}
           onSort={handleSort}
         />
-        <EmailDetail email={selectedEmail} />
+        <EmailDetail email={selectedEmail} onUpdateEmail={handleUpdateEmail} />
         <CrmSidebar 
           email={selectedEmail} 
           deals={deals} 
@@ -160,6 +177,8 @@ export default function App() {
         onOpenExport={() => setIsExportOpen(true)}
         onOpenFilter={() => setIsFilterOpen(true)}
         onOpenCompose={() => setIsComposeOpen(true)}
+        inboxCount={inboxCount} // Pass inbox count
+        unansweredCount={unansweredCount} // Pass unanswered count
       >
         {renderContent()}
       </Layout>

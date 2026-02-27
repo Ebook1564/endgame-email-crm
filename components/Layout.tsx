@@ -12,6 +12,8 @@ interface LayoutProps {
   onOpenExport: () => void;
   onOpenFilter: () => void;
   onOpenCompose: () => void;
+  inboxCount: number;
+  unansweredCount: number;
 }
 
 export const Layout: React.FC<LayoutProps> = ({
@@ -23,7 +25,9 @@ export const Layout: React.FC<LayoutProps> = ({
   onSearch,
   onOpenExport,
   onOpenFilter,
-  onOpenCompose
+  onOpenCompose,
+  inboxCount,
+  unansweredCount
 }) => {
   return (
     <div className="flex h-screen w-full overflow-hidden tech-bg text-slate-100 font-sans z-0 relative">
@@ -35,6 +39,8 @@ export const Layout: React.FC<LayoutProps> = ({
         isCollapsed={isSidebarCollapsed}
         setIsCollapsed={setIsSidebarCollapsed}
         onOpenCompose={onOpenCompose}
+        inboxCount={inboxCount}
+        unansweredCount={unansweredCount}
       />
       
       {/* Main Content Area */}

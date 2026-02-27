@@ -1,4 +1,5 @@
 import { DealStage, TaskStatus, EmailStatus, User, Deal, Task, Email, Activity } from './types';
+import { mockUnansweredEmails } from './mockData/unansweredEmails';
 
 export const currentUser: User = {
   id: 'u1',
@@ -174,7 +175,7 @@ export const initialEmails: Email[] = [
     hasAttachment: false,
     sentiment: 'Neutral'
   }
-];
+].concat(mockUnansweredEmails);
 
 export const initialActivities: Activity[] = [
   { id: 'a1', type: 'email', description: 'Sarah Jenkins replied to Enterprise License', timestamp: new Date(Date.now() - 1000 * 60 * 5).toISOString(), user: mockUsers[0], dealId: 'd1' },

@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-  Inbox, Send, File, Trash2, PieChart, CheckSquare, Briefcase, LayoutDashboard, ChevronLeft, ChevronRight, Activity, PenSquare
+  Inbox, Send, File, Trash2, PieChart, CheckSquare, Briefcase, LayoutDashboard, ChevronLeft, ChevronRight, Activity, PenSquare, MessageSquareWarning
 } from './Icons';
 import { EmailStatus } from '../types';
 
@@ -10,13 +10,16 @@ interface SidebarProps {
   isCollapsed: boolean;
   setIsCollapsed: (val: boolean) => void;
   onOpenCompose: () => void;
+  inboxCount: number;
+  unansweredCount: number;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed, setIsCollapsed, onOpenCompose }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed, setIsCollapsed, onOpenCompose, inboxCount, unansweredCount }) => {
   const navItems = [
     { id: 'dashboard', label: 'Command Center', icon: Activity },
     { divider: true, id: 'd0' },
-    { id: EmailStatus.INBOX, label: 'Inbox', icon: Inbox, count: 2 },
+    { id: EmailStatus.INBOX, label: 'Inbox', icon: Inbox, count: inboxCount },
+    { id: EmailStatus.UNANSWERED, label: 'Unanswered', icon: MessageSquareWarning, count: unansweredCount }, // New item for unanswered emails
     { id: EmailStatus.SENT, label: 'Sent', icon: Send },
     { id: EmailStatus.DRAFT, label: 'Drafts', icon: File },
     { id: EmailStatus.TRASH, label: 'Trash', icon: Trash2 },
