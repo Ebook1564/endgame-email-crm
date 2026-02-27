@@ -7,9 +7,10 @@ import { AnalyticsDashboard } from './components/Analytics';
 import { DealsDashboard } from './components/DealsDashboard';
 import { TasksDashboard } from './components/TasksDashboard';
 import { OverviewDashboard } from './components/OverviewDashboard';
+import { UnansweredDashboard } from './components/UnansweredDashboard';
 import { ExportModal, FilterModal } from './components/Modals';
 import { ComposeEmail } from './components/ComposeEmail';
-import { initialEmails, initialDeals, initialTasks, initialActivities } from './mockData';
+import { initialEmails, initialDeals, initialTasks, initialActivities, unansweredEmails as mockUnanswered } from './mockData';
 import { Email, Deal, Task, Activity, FilterState, SortState, EmailStatus } from './types';
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
   const [deals, setDeals] = useState<Deal[]>(initialDeals);
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [activities, setActivities] = useState<Activity[]>(initialActivities);
+  const [unansweredEmails, setUnansweredEmails] = useState<Email[]>([]);
   
   const [selectedEmailId, setSelectedEmailId] = useState<string | null>(initialEmails[0].id);
   
@@ -42,6 +44,10 @@ export default function App() {
     field: 'date',
     direction: 'desc'
   });
+
+  const fetchUnansweredEmails = () => {
+    setUnansweredEmails(mockUnanswered);
+  };
 
   // Handlers for CRM updates
   const handleUpdateDeal = (updatedDeal: Deal) => {
@@ -142,6 +148,7 @@ export default function App() {
     if (activeTab === 'analytics') return <AnalyticsDashboard />;
     if (activeTab === 'deals') return <DealsDashboard deals={deals} />;
     if (activeTab === 'tasks') return <TasksDashboard tasks={tasks} onUpdateTask={handleUpdateTask} />;
+    if (activeTab === EmailStatus.UNANSWERED) return <UnansweredDashboard unansweredEmails={unansweredEmails} />;
 
     // Default: Email Inbox/Sent/Draft View
     return (
@@ -161,6 +168,7 @@ export default function App() {
           tasks={tasks}
           onUpdateDeal={handleUpdateDeal}
           onUpdateTask={handleUpdateTask}
+          onFetchUnanswered={fetchUnansweredEmails}
         />
       </div>
     );

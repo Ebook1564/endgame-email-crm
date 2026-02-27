@@ -8,9 +8,10 @@ interface CrmSidebarProps {
   tasks: Task[];
   onUpdateDeal: (deal: Deal) => void;
   onUpdateTask: (task: Task) => void;
+  onFetchUnanswered: () => void;
 }
 
-export const CrmSidebar: React.FC<CrmSidebarProps> = ({ email, deals, tasks, onUpdateDeal, onUpdateTask }) => {
+export const CrmSidebar: React.FC<CrmSidebarProps> = ({ email, deals, tasks, onUpdateDeal, onUpdateTask, onFetchUnanswered }) => {
   const [localNotes, setLocalNotes] = useState('');
 
   const linkedDeal = email?.dealId ? deals.find(d => d.id === email.dealId) : null;
@@ -43,6 +44,12 @@ export const CrmSidebar: React.FC<CrmSidebarProps> = ({ email, deals, tasks, onU
       <div className="w-80 glass border-l border-white/10 hidden xl:flex flex-col shrink-0 items-center justify-center text-slate-500 p-8 text-center bg-black/20">
         <Briefcase className="w-12 h-12 mb-4 opacity-20" />
         <p className="text-sm">Select an email to view CRM context</p>
+        <button
+          onClick={onFetchUnanswered}
+          className="mt-4 text-xs font-bold uppercase tracking-wider text-indigo-400 hover:text-indigo-300 px-4 py-2 bg-indigo-500/10 rounded-lg transition-colors border border-indigo-500/20"
+        >
+          Get Unanswered Emails
+        </button>
       </div>
     );
   }
